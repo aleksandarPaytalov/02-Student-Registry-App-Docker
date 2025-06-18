@@ -41,11 +41,9 @@ pipeline {
          stage('Deploy') {
             steps {
                 echo "Deployment approved by: ${DEPLOYER}"
-                // Add your deployment commands here
-                bat 'npm run deploy'
-                // bat 'docker build -t myapp .'
-                // bat 'kubectl apply -f deployment.yaml'
-                echo 'Deploying application...'
+                bat 'taskkill /F /IM node.exe || exit 0'
+                bat 'start /B node server.js'
+                echo 'Node.js application started'      
             }
         }
     }
