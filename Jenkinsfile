@@ -30,20 +30,19 @@ pipeline {
             }
         }
 
+        stage('Deploy') {
+            steps {
+                docker build -t %DockerUserName%/studentsappdevops:1 .
+                docker login -u %DockerUserName% --password %DockerPassword%  
+                docker push %DockerUserName%/studentsappdevops:1      
+            }
+        }
+
         stage('Manual Approval for Deployment') {
             steps {
                 input message: 'Deploy to production?', 
                       ok: 'Deploy',
                       submitterParameter: 'DEPLOYER'
-            }
-        }
-
-         stage('Deploy') {
-            steps {
-                echo "Deployment approved by: ${DEPLOYER}"
-                bat 'taskkill /F /IM node.exe || exit 0'
-                bat 'start /B node server.js'
-                echo 'Node.js application started'      
             }
         }
     }
