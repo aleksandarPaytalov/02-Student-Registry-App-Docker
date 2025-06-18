@@ -42,7 +42,7 @@ pipeline {
             steps {
                 echo "Deployment approved by: ${DEPLOYER}"
                 // Add your deployment commands here
-                // bat 'npm run deploy'
+                bat 'npm run deploy'
                 // bat 'docker build -t myapp .'
                 // bat 'kubectl apply -f deployment.yaml'
                 echo 'Deploying application...'
